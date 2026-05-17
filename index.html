@@ -9,25 +9,65 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
     :root {
-      --navy:        #0A1628;
-      --navy-mid:    #0D1F38;
-      --navy-card:   #111e35;
-      --teal:        #00D4AA;
-      --teal-glow:   rgba(0, 212, 170, 0.12);
-      --amber:       #F5A623;
-      --off-white:   #F7F7F2;
-      --text-muted:  rgba(247, 247, 242, 0.65);
-      --card-bg:     rgba(0, 212, 170, 0.06);
-      --card-border: rgba(0, 212, 170, 0.15);
+      --navy:          #0D1F38;
+      --navy-dark:     #091629;
+      --teal:          #1A6E6E;
+      --teal-light:    #2A8F8F;
+      --teal-bg:       rgba(26, 110, 110, 0.08);
+      --teal-border:   rgba(26, 110, 110, 0.18);
+      --amber:         #8A5C00;
+      --amber-bg:      rgba(138, 92, 0, 0.07);
+      --amber-border:  rgba(138, 92, 0, 0.22);
+      --amber-text:    #7A5100;
+      --off-white:     #F8F8F5;
+      --body-bg:       #FFFFFF;
+      --surface:       #F4F4F1;
+      --surface-border:#DDE0E6;
+      --text-primary:  #0D1F38;
+      --text-secondary:#3D4D62;
+      --text-muted:    #5E6E84;
+      --focus-ring:    #1A6E6E;
     }
 
+    /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--navy);
-      color: var(--off-white);
+      background: var(--body-bg);
+      color: var(--text-primary);
       overflow-x: hidden;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* ─── ACCESSIBILITY ─── */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 0 0 6px 6px;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top 0.15s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 3px;
+      border-radius: 3px;
     }
 
     /* ─── NAV ─── */
@@ -35,18 +75,18 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 20px 48px;
+      padding: 16px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(10, 22, 40, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 212, 170, 0.08);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--surface-border);
     }
     .nav-logo {
       font-size: 20px;
       font-weight: 800;
-      color: var(--off-white);
+      color: var(--navy);
       text-decoration: none;
       letter-spacing: -0.3px;
     }
@@ -54,71 +94,72 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: 32px;
       list-style: none;
     }
     .nav-links a {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 500;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--off-white); }
+    .nav-links a:hover { color: var(--navy); }
     .nav-cta {
-      background: var(--teal);
-      color: var(--navy) !important;
+      background: var(--teal) !important;
+      color: #fff !important;
       font-weight: 700 !important;
       padding: 10px 24px;
       border-radius: 6px;
-      transition: background 0.2s, transform 0.15s !important;
+      transition: background 0.2s !important;
     }
     .nav-cta:hover {
-      background: #00bfa0 !important;
-      transform: translateY(-1px);
+      background: var(--teal-light) !important;
     }
 
     /* ─── HERO ─── */
     .hero {
-      position: relative;
-      height: 100vh;
-      min-height: 680px;
+      padding: 140px 24px 100px;
+      min-height: 80vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--navy);
-      overflow: hidden;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--surface-border);
+      /* Subtle dot-grid background pattern */
+      background-image:
+        radial-gradient(circle, rgba(26,110,110,0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: 0 0;
     }
     .hero-content {
-      position: relative;
-      z-index: 2;
       text-align: center;
       max-width: 820px;
-      padding: 0 24px;
+      position: relative;
     }
     .hero-eyebrow {
       display: inline-block;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: var(--teal);
       margin-bottom: 24px;
     }
     .hero-title {
-      font-size: clamp(48px, 7vw, 80px);
+      font-size: clamp(40px, 6vw, 68px);
       font-weight: 800;
-      line-height: 1.1;
-      color: var(--off-white);
+      line-height: 1.12;
+      color: var(--navy);
       letter-spacing: -1.5px;
       margin-bottom: 28px;
     }
     .hero-title span { color: var(--teal); }
     .hero-subtitle {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 400;
-      line-height: 1.7;
-      color: var(--text-muted);
+      line-height: 1.65;
+      color: var(--text-secondary);
       max-width: 640px;
       margin: 0 auto 40px;
     }
@@ -132,131 +173,70 @@
     .btn-primary {
       display: inline-block;
       background: var(--teal);
-      color: var(--navy);
-      padding: 16px 42px;
+      color: #fff;
+      padding: 16px 40px;
       border-radius: 6px;
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 17px;
+      font-size: 18px;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease;
+      transition: background 0.2s;
     }
-    .btn-primary:hover { background: #00bfa0; transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--teal-light); }
     .btn-secondary {
       display: inline-block;
       background: transparent;
-      color: var(--off-white);
+      color: var(--navy);
       padding: 15px 32px;
       border-radius: 6px;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 16px;
-      border: 1px solid rgba(247, 247, 242, 0.2);
+      font-size: 17px;
+      border: 2px solid var(--navy);
       cursor: pointer;
       text-decoration: none;
-      transition: border-color 0.2s, transform 0.15s;
+      transition: background 0.2s, color 0.2s;
     }
     .btn-secondary:hover {
-      border-color: rgba(247, 247, 242, 0.5);
-      transform: translateY(-2px);
+      background: var(--navy);
+      color: #fff;
     }
     .hero-compliance-note {
       margin-top: 28px;
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
+      line-height: 1.5;
     }
     .hero-compliance-note strong {
-      color: var(--amber);
-      font-weight: 600;
+      color: var(--amber-text);
+      font-weight: 700;
     }
 
-    /* Hero shapes */
-    .hero-shapes-back,
-    .hero-shapes-mid {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .shape-rect {
-      position: absolute;
-      width: 340px; height: 200px;
-      border: 2px solid rgba(0, 212, 170, 0.10);
-      border-radius: 12px;
-      top: 12%; right: 7%;
-    }
-    .shape-circle-sm {
-      position: absolute;
-      width: 70px; height: 70px;
-      border-radius: 50%;
-      background: rgba(0, 212, 170, 0.07);
-      bottom: 22%; left: 8%;
-    }
-    .shape-diamond {
-      position: absolute;
-      width: 55px; height: 55px;
-      background: rgba(245, 166, 35, 0.16);
-      transform: rotate(45deg);
-      top: 58%; right: 16%;
-    }
-    .shape-dot {
-      position: absolute;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--teal);
-      top: 28%; left: 7%;
-    }
-    .shape-rect-sm {
-      position: absolute;
-      width: 120px; height: 70px;
-      border: 1px solid rgba(245, 166, 35, 0.12);
-      border-radius: 8px;
-      bottom: 30%; right: 5%;
-    }
-    .shape-circle-lg {
-      position: absolute;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 212, 170, 0.06);
-      top: 8%; left: 15%;
-    }
-
-    @keyframes floatA {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50%       { transform: translateY(-16px) rotate(4deg); }
-    }
-    @keyframes floatB {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50%       { transform: translateY(-11px) rotate(-3deg); }
-    }
-    @keyframes floatC {
-      0%, 100% { transform: translateY(0) rotate(45deg); }
-      50%       { transform: translateY(-9px) rotate(50deg); }
-    }
-    .float-a { animation: floatA 7s ease-in-out infinite; }
-    .float-b { animation: floatB 9s ease-in-out infinite 1.5s; }
-    .float-c { animation: floatC 6s ease-in-out infinite 0.5s; }
-
+    /* Scroll indicator */
     @keyframes bounce {
       0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
       50%       { transform: translateX(-50%) translateY(7px); opacity: 1; }
     }
     .scroll-indicator {
       position: absolute;
-      bottom: 32px;
+      bottom: -60px;
       left: 50%;
       transform: translateX(-50%);
       animation: bounce 2s ease-in-out infinite;
       cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
     }
 
     /* ─── URGENCY BANNER ─── */
     .urgency-section {
-      background: rgba(245, 166, 35, 0.08);
-      border-top: 1px solid rgba(245, 166, 35, 0.2);
-      border-bottom: 1px solid rgba(245, 166, 35, 0.2);
-      padding: 24px;
+      background: var(--amber-bg);
+      border-top: 1px solid var(--amber-border);
+      border-bottom: 1px solid var(--amber-border);
+      padding: 22px 24px;
       text-align: center;
     }
     .urgency-inner {
@@ -269,54 +249,57 @@
       flex-wrap: wrap;
     }
     .urgency-badge {
-      background: var(--amber);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+      background: var(--amber-text);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       padding: 4px 12px;
       border-radius: 4px;
       white-space: nowrap;
     }
     .urgency-text {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 500;
-      color: var(--off-white);
+      color: var(--text-primary);
+      line-height: 1.5;
     }
-    .urgency-text strong { color: var(--amber); }
+    .urgency-text strong { color: var(--amber-text); }
 
-    /* ─── FEATURES ─── */
-    .features-section {
-      padding: 110px 24px;
-      background: var(--navy-mid);
-    }
+    /* ─── SECTION SHARED ─── */
     .section-header {
       text-align: center;
       max-width: 700px;
-      margin: 0 auto 72px;
+      margin: 0 auto 64px;
     }
     .section-eyebrow {
       display: inline-block;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--teal);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-    .features-headline {
-      font-size: clamp(34px, 4vw, 48px);
+    .section-headline {
+      font-size: clamp(30px, 4vw, 44px);
       font-weight: 700;
-      line-height: 1.15;
-      color: var(--off-white);
+      line-height: 1.18;
+      color: var(--navy);
       letter-spacing: -0.5px;
       margin-bottom: 16px;
     }
-    .features-subtext {
-      font-size: 17px;
-      color: var(--text-muted);
+    .section-subtext {
+      font-size: 18px;
+      color: var(--text-secondary);
       line-height: 1.65;
+    }
+
+    /* ─── FEATURES ─── */
+    .features-section {
+      padding: 100px 24px;
+      background: var(--body-bg);
     }
     .features-grid {
       display: grid;
@@ -329,39 +312,41 @@
     @media (max-width: 580px) { .features-grid { grid-template-columns: 1fr; } }
 
     .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
+      background: var(--off-white);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
       padding: 36px 28px;
-      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .feature-card:hover {
-      background: rgba(0, 212, 170, 0.10);
-      border-color: rgba(0, 212, 170, 0.30);
-      transform: translateY(-5px);
+      border-color: var(--teal);
+      box-shadow: 0 4px 18px rgba(26, 110, 110, 0.10);
     }
     .feature-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       margin-bottom: 20px;
     }
     .feature-card h3 {
       font-size: 20px;
-      font-weight: 600;
-      color: var(--off-white);
+      font-weight: 700;
+      color: var(--navy);
       margin-bottom: 10px;
       letter-spacing: -0.2px;
     }
     .feature-card p {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.65;
     }
 
     /* ─── HOW IT WORKS ─── */
     .how-section {
-      padding: 110px 24px;
-      background: var(--navy);
+      padding: 100px 24px;
+      background: var(--off-white);
+      border-top: 1px solid var(--surface-border);
+      border-bottom: 1px solid var(--surface-border);
     }
     .steps-grid {
       display: grid;
@@ -375,13 +360,13 @@
 
     .step-item {
       text-align: center;
-      padding: 32px 20px;
+      padding: 28px 16px;
     }
     .step-number {
       width: 52px; height: 52px;
       border-radius: 50%;
-      background: var(--teal-glow);
-      border: 1px solid rgba(0, 212, 170, 0.3);
+      background: var(--teal-bg);
+      border: 2px solid var(--teal-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -391,66 +376,67 @@
       margin: 0 auto 20px;
     }
     .step-item h3 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--off-white);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
       margin-bottom: 10px;
     }
     .step-item p {
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 16px;
+      color: var(--text-secondary);
       line-height: 1.65;
     }
 
     /* ─── PRICING ─── */
     .pricing-section {
-      padding: 110px 24px;
-      background: var(--navy-mid);
+      padding: 100px 24px;
+      background: var(--body-bg);
     }
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       max-width: 1060px;
-      margin: 0 auto 48px;
+      margin: 0 auto 40px;
       align-items: start;
     }
     @media (max-width: 860px) { .pricing-grid { grid-template-columns: 1fr; max-width: 480px; } }
 
     .pricing-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
+      background: var(--off-white);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
       padding: 40px 32px;
       position: relative;
-      transition: transform 0.25s, border-color 0.25s;
+      transition: box-shadow 0.2s, border-color 0.2s;
     }
-    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card:hover {
+      box-shadow: 0 6px 24px rgba(13, 31, 56, 0.09);
+    }
     .pricing-card.featured {
-      background: rgba(0, 212, 170, 0.08);
-      border-color: rgba(0, 212, 170, 0.4);
-      transform: scale(1.03);
+      background: #fff;
+      border: 2px solid var(--teal);
+      box-shadow: 0 6px 28px rgba(26, 110, 110, 0.12);
     }
-    .pricing-card.featured:hover { transform: scale(1.03) translateY(-4px); }
     .featured-badge {
       position: absolute;
       top: -14px;
       left: 50%;
       transform: translateX(-50%);
       background: var(--teal);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 5px 16px;
       border-radius: 20px;
       white-space: nowrap;
     }
     .pricing-tier {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--teal);
       margin-bottom: 12px;
@@ -458,7 +444,7 @@
     .pricing-price {
       font-size: 52px;
       font-weight: 800;
-      color: var(--off-white);
+      color: var(--navy);
       letter-spacing: -2px;
       line-height: 1;
       margin-bottom: 6px;
@@ -472,39 +458,40 @@
       display: inline-block;
     }
     .pricing-cadence {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 24px;
     }
     .pricing-description {
-      font-size: 15px;
-      color: var(--text-muted);
+      font-size: 16px;
+      color: var(--text-secondary);
       line-height: 1.6;
       margin-bottom: 28px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid rgba(247, 247, 242, 0.08);
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--surface-border);
     }
     .pricing-features {
       list-style: none;
       margin-bottom: 32px;
     }
     .pricing-features li {
-      font-size: 14px;
-      color: var(--off-white);
+      font-size: 15px;
+      color: var(--text-primary);
       padding: 7px 0;
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .pricing-features li::before {
       content: '';
       display: block;
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
-      margin-top: 1px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%2300D4AA' stroke-opacity='0.4'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%2300D4AA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      flex-shrink: 0;
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%231A6E6E' stroke-opacity='0.5'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%231A6E6E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-size: contain;
     }
@@ -515,32 +502,33 @@
       border-radius: 6px;
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 17px;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .btn-pricing-primary {
       background: var(--teal);
-      color: var(--navy);
+      color: #fff;
+      border: 2px solid var(--teal);
     }
-    .btn-pricing-primary:hover { background: #00bfa0; transform: translateY(-2px); }
+    .btn-pricing-primary:hover { background: var(--teal-light); border-color: var(--teal-light); }
     .btn-pricing-outline {
       background: transparent;
-      color: var(--off-white);
-      border: 1px solid rgba(247, 247, 242, 0.25);
+      color: var(--navy);
+      border: 2px solid var(--navy);
     }
     .btn-pricing-outline:hover {
-      border-color: rgba(247, 247, 242, 0.5);
-      transform: translateY(-2px);
+      background: var(--navy);
+      color: #fff;
     }
 
     /* Maintenance add-on */
     .maintenance-card {
       max-width: 1060px;
       margin: 0 auto;
-      background: rgba(245, 166, 35, 0.06);
-      border: 1px solid rgba(245, 166, 35, 0.2);
-      border-radius: 12px;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 10px;
       padding: 32px 40px;
       display: flex;
       align-items: center;
@@ -551,12 +539,12 @@
     .maintenance-left h3 {
       font-size: 20px;
       font-weight: 700;
-      color: var(--off-white);
+      color: var(--navy);
       margin-bottom: 8px;
     }
     .maintenance-left p {
-      font-size: 15px;
-      color: var(--text-muted);
+      font-size: 16px;
+      color: var(--text-secondary);
       line-height: 1.6;
       max-width: 560px;
     }
@@ -567,7 +555,7 @@
     .maintenance-price {
       font-size: 36px;
       font-weight: 800;
-      color: var(--amber);
+      color: var(--amber-text);
       letter-spacing: -1px;
       line-height: 1;
     }
@@ -578,7 +566,7 @@
       display: inline-block;
     }
     .maintenance-cadence {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       margin-bottom: 16px;
     }
@@ -586,103 +574,127 @@
     /* ─── SOCIAL PROOF ─── */
     .proof-section {
       padding: 80px 24px;
-      background: var(--navy);
+      background: var(--off-white);
+      border-top: 1px solid var(--surface-border);
+      border-bottom: 1px solid var(--surface-border);
       text-align: center;
     }
     .proof-inner {
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto;
     }
+    blockquote {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
     .proof-quote {
-      font-size: clamp(20px, 2.5vw, 26px);
+      font-size: clamp(19px, 2.2vw, 24px);
       font-weight: 500;
-      color: var(--off-white);
-      line-height: 1.55;
-      margin-bottom: 28px;
+      color: var(--navy);
+      line-height: 1.6;
+      margin-bottom: 24px;
       font-style: italic;
     }
     .proof-quote::before { content: '\201C'; color: var(--teal); }
     .proof-quote::after  { content: '\201D'; color: var(--teal); }
     .proof-attribution {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-muted);
       font-weight: 500;
     }
     .proof-attribution strong {
       color: var(--teal);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* ─── FAQ ─── */
     .faq-section {
       padding: 100px 24px;
-      background: var(--navy-mid);
+      background: var(--body-bg);
     }
     .faq-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      gap: 36px 48px;
       max-width: 1000px;
       margin: 0 auto;
     }
     @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+
     .faq-item h3 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--off-white);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
       margin-bottom: 10px;
+      line-height: 1.35;
     }
     .faq-item p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.65;
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
 
     /* ─── CLOSING CTA ─── */
     .closing-section {
-      padding: 130px 24px;
+      padding: 110px 24px;
       text-align: center;
       background: var(--navy);
-      position: relative;
-      overflow: hidden;
-    }
-    .closing-glow {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 600px 300px at 50% 50%, rgba(0, 212, 170, 0.08), transparent);
-      pointer-events: none;
     }
     .closing-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
+      max-width: 660px;
       margin: 0 auto;
     }
     .closing-headline {
-      font-size: clamp(36px, 5vw, 58px);
+      font-size: clamp(32px, 4.5vw, 52px);
       font-weight: 800;
-      line-height: 1.12;
-      color: var(--off-white);
-      letter-spacing: -1px;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -0.8px;
       margin-bottom: 20px;
     }
-    .closing-headline span { color: var(--teal); }
+    .closing-headline span { color: #6ECFCF; }
     .closing-subtext {
-      font-size: 18px;
-      color: var(--text-muted);
+      font-size: 19px;
+      color: rgba(255,255,255,0.78);
       margin-bottom: 40px;
-      line-height: 1.6;
+      line-height: 1.65;
+    }
+    .btn-primary-inverted {
+      display: inline-block;
+      background: #fff;
+      color: var(--navy);
+      padding: 16px 40px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary-inverted:hover {
+      background: var(--off-white);
     }
     .closing-note {
       margin-top: 24px;
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+    }
+    .closing-note a {
+      color: #6ECFCF;
+      text-decoration: underline;
+    }
+    .closing-note a:hover {
+      color: #fff;
     }
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 40px 48px;
-      border-top: 1px solid rgba(247, 247, 242, 0.06);
+      padding: 36px 48px;
+      background: var(--navy-dark);
+      border-top: 1px solid rgba(255,255,255,0.07);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -692,43 +704,53 @@
     .footer-logo {
       font-size: 16px;
       font-weight: 800;
-      color: var(--off-white);
+      color: rgba(255,255,255,0.90);
     }
-    .footer-logo span { color: var(--teal); }
+    .footer-logo span { color: #6ECFCF; }
     .footer-text {
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
     }
     .footer-text a {
-      color: var(--teal);
-      text-decoration: none;
+      color: #6ECFCF;
+      text-decoration: underline;
     }
+    .footer-text a:hover { color: #fff; }
     .footer-links {
       display: flex;
       gap: 24px;
       list-style: none;
     }
     .footer-links a {
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 14px;
+      color: rgba(255,255,255,0.50);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--off-white); }
+    .footer-links a:hover { color: rgba(255,255,255,0.90); }
 
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 680px) {
-      nav { padding: 16px 20px; }
+      nav { padding: 14px 20px; }
       .nav-links { display: none; }
-      footer { flex-direction: column; text-align: center; padding: 32px 20px; }
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+      }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .maintenance-card { padding: 24px 20px; }
     }
   </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Civic<span>Meetings</span>.ai</a>
-  <ul class="nav-links">
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo">Civic<span>Meetings</span>.ai</a>
+  <ul class="nav-links" role="list">
     <li><a href="#features">Features</a></li>
     <li><a href="#how-it-works">How It Works</a></li>
     <li><a href="#pricing">Pricing</a></li>
@@ -738,173 +760,170 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="hero">
-
-  <div class="hero-shapes-back">
-    <div class="shape-rect float-a"></div>
-    <div class="shape-circle-sm float-b"></div>
-    <div class="shape-circle-lg float-b"></div>
-  </div>
-  <div class="hero-shapes-mid">
-    <div class="shape-diamond float-c"></div>
-    <div class="shape-dot"></div>
-    <div class="shape-rect-sm float-a"></div>
-  </div>
-
+<main id="main-content">
+<section class="hero" id="hero" aria-labelledby="hero-heading">
   <div class="hero-content">
     <div class="hero-eyebrow">ADA Compliance for Public Meetings</div>
-    <h1 class="hero-title">
-      Your Public Meetings.<br>
-      Fully <span>Compliant</span>. Finally.
+    <h1 class="hero-title" id="hero-heading">
+      Public Meeting Records.<br>
+      <span>Accessible</span> to Everyone.
     </h1>
     <p class="hero-subtitle">
       CivicMeetings.ai gives small towns and nonprofits a complete system to publish ADA-compliant meeting records — agendas, minutes, video, and documents — without hiring a developer or a compliance consultant.
     </p>
     <div class="hero-cta-group">
-      <a href="#pricing" class="btn-primary">Get Started Today</a>
-      <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+      <a href="#pricing" class="btn-primary">See Pricing</a>
+      <a href="#how-it-works" class="btn-secondary">How It Works</a>
     </div>
     <p class="hero-compliance-note">
       <strong>DOJ 2024 Final Rule:</strong> State and local governments must meet WCAG 2.1 AA standards. Deadlines begin in 2026.
     </p>
-  </div>
-
-  <div class="scroll-indicator" onclick="document.getElementById('urgency').scrollIntoView({behavior:'smooth'})">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 9l6 6 6-6" stroke="#00D4AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <button
+      class="scroll-indicator"
+      aria-label="Scroll down to learn more"
+      onclick="document.getElementById('urgency').scrollIntoView({behavior:'smooth'})"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M6 9l6 6 6-6" stroke="#1A6E6E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </section>
 
 <!-- URGENCY BANNER -->
-<div class="urgency-section" id="urgency">
+<div class="urgency-section" id="urgency" role="region" aria-label="Compliance deadline notice">
   <div class="urgency-inner">
     <span class="urgency-badge">Compliance Deadline</span>
     <p class="urgency-text">
-      The DOJ's 2024 rule requires digital accessibility compliance for municipalities by <strong>2026–2027</strong>. Public meeting records are explicitly in scope. Is your town ready?
+      The DOJ's 2024 rule requires digital accessibility compliance for municipalities by <strong>2026 and 2027</strong>. Public meeting records are explicitly in scope. Is your town ready?
     </p>
   </div>
 </div>
 
 <!-- FEATURES -->
-<section class="features-section" id="features">
+<section class="features-section" id="features" aria-labelledby="features-heading">
   <div class="section-header">
-    <span class="section-eyebrow">Everything You Need</span>
-    <h2 class="features-headline">A Complete Compliance System,<br>Not Just Another Tool</h2>
-    <p class="features-subtext">
-      Every element of a compliant public meeting record — handled, documented, and ready for your community.
+    <span class="section-eyebrow">What's Included</span>
+    <h2 class="section-headline" id="features-heading">A Complete Compliance System</h2>
+    <p class="section-subtext">
+      Every element of a compliant public meeting record — organized, documented, and ready for your community.
     </p>
   </div>
 
   <div class="features-grid">
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="8" y="6" width="28" height="36" rx="4" stroke="#00D4AA" stroke-width="2"/>
-        <path d="M15 16h18M15 22h18M15 28h12" stroke="#00D4AA" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="36" cy="36" r="8" fill="rgba(0,212,170,0.1)" stroke="#00D4AA" stroke-width="1.5"/>
-        <path d="M33 36l2 2 4-4" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Document icon">
+        <title>Document icon</title>
+        <rect x="8" y="6" width="28" height="36" rx="4" stroke="#1A6E6E" stroke-width="2"/>
+        <path d="M15 16h18M15 22h18M15 28h12" stroke="#1A6E6E" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="36" cy="36" r="8" fill="rgba(26,110,110,0.1)" stroke="#1A6E6E" stroke-width="1.5"/>
+        <path d="M33 36l2 2 4-4" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <h3>Complete Meeting Pages</h3>
-      <p>Every element of a public meeting record — agenda, minutes, video, and attachments — organized on one accessible, standards-compliant page your community can trust.</p>
-    </div>
+      <p>Every element of a public meeting record — agenda, minutes, video, and attachments — organized on one accessible, standards-compliant page your community can rely on.</p>
+    </article>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="10" width="22" height="28" rx="3" stroke="#00D4AA" stroke-width="2"/>
-        <path d="M12 18h10M12 23h10M12 28h6" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="26" y="18" width="16" height="20" rx="3" stroke="#00D4AA" stroke-width="1.5" stroke-dasharray="3 2"/>
-        <path d="M30 25h8M30 29h5" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Templates icon">
+        <title>Templates icon</title>
+        <rect x="6" y="10" width="22" height="28" rx="3" stroke="#1A6E6E" stroke-width="2"/>
+        <path d="M12 18h10M12 23h10M12 28h6" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="26" y="18" width="16" height="20" rx="3" stroke="#1A6E6E" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <path d="M30 25h8M30 29h5" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
       </svg>
       <h3>ADA-Ready Document Templates</h3>
       <p>Pre-structured Word and Google Docs templates with correct heading styles built in. Staff fill in the content — compliant PDFs come out automatically, every time.</p>
-    </div>
+    </article>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="10" width="36" height="24" rx="4" stroke="#00D4AA" stroke-width="2"/>
-        <circle cx="24" cy="22" r="6" stroke="#00D4AA" stroke-width="1.5"/>
-        <path d="M22 22l2 2 4-4" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M18 38h12" stroke="#00D4AA" stroke-width="2" stroke-linecap="round"/>
-        <path d="M24 34v4" stroke="#00D4AA" stroke-width="2" stroke-linecap="round"/>
-        <path d="M8 17s0 0 0 0" stroke="#00D4AA" stroke-width="1" opacity="0.4"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Video captioning icon">
+        <title>Video captioning icon</title>
+        <rect x="6" y="10" width="36" height="24" rx="4" stroke="#1A6E6E" stroke-width="2"/>
+        <circle cx="24" cy="22" r="6" stroke="#1A6E6E" stroke-width="1.5"/>
+        <path d="M22 22l2 2 4-4" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18 38h12" stroke="#1A6E6E" stroke-width="2" stroke-linecap="round"/>
+        <path d="M24 34v4" stroke="#1A6E6E" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <h3>Accessible Video Records</h3>
-      <p>AI-powered captioning workflow with a step-by-step process any staff member can run. Includes transcript generation and a caption accuracy review checklist before publishing.</p>
-    </div>
+      <p>Captioning workflow with a step-by-step process any staff member can run. Includes transcript generation and a caption accuracy review checklist before publishing.</p>
+    </article>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 24l10 10L40 14" stroke="#00D4AA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="24" cy="24" r="18" stroke="#00D4AA" stroke-width="1.5" stroke-opacity="0.3"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Checklist icon">
+        <title>Checklist icon</title>
+        <path d="M8 24l10 10L40 14" stroke="#1A6E6E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="24" r="18" stroke="#1A6E6E" stroke-width="1.5" stroke-opacity="0.3"/>
       </svg>
       <h3>Built-In Compliance Checklist</h3>
-      <p>Staff complete a documented attestation before any meeting record publishes. Every check is time-stamped and stored — creating a paper trail of good-faith compliance effort.</p>
-    </div>
+      <p>Staff complete a documented attestation before any meeting record publishes. Every check is time-stamped and stored — creating a clear record of good-faith compliance effort.</p>
+    </article>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="10" width="24" height="16" rx="3" stroke="#00D4AA" stroke-width="1.5"/>
-        <rect x="20" y="20" width="24" height="16" rx="3" stroke="#00D4AA" stroke-width="1.5" stroke-dasharray="3 2"/>
-        <path d="M16 26v4" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M28 26v4M24 22l4 4 4-4" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Integration icon">
+        <title>Integration icon</title>
+        <rect x="4" y="10" width="24" height="16" rx="3" stroke="#1A6E6E" stroke-width="1.5"/>
+        <rect x="20" y="20" width="24" height="16" rx="3" stroke="#1A6E6E" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <path d="M16 26v4" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M28 26v4M24 22l4 4 4-4" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
       </svg>
       <h3>Works With Any Website</h3>
       <p>Your dedicated meeting records page at yourtown.civicmeetings.ai works as a standalone URL or embeds into any existing website — Drupal, WordPress, Squarespace, or anything else — with one line of code.</p>
-    </div>
+    </article>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="24" cy="24" r="16" stroke="#00D4AA" stroke-width="2"/>
-        <path d="M24 14v10l6 4" stroke="#00D4AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10 10l4 4M38 10l-4 4" stroke="#00D4AA" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <article class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Automatic updates icon">
+        <title>Automatic updates icon</title>
+        <circle cx="24" cy="24" r="16" stroke="#1A6E6E" stroke-width="2"/>
+        <path d="M24 14v10l6 4" stroke="#1A6E6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 10l4 4M38 10l-4 4" stroke="#1A6E6E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
       </svg>
       <h3>Always Current</h3>
       <p>Platform-wide updates roll out automatically as DOJ regulations evolve. When compliance standards change, your system updates — no action required from your staff.</p>
-    </div>
+    </article>
 
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section" id="how-it-works">
+<section class="how-section" id="how-it-works" aria-labelledby="how-heading">
   <div class="section-header">
-    <span class="section-eyebrow">Simple by Design</span>
-    <h2 class="features-headline">Up and Running in Days,<br>Not Months</h2>
-    <p class="features-subtext">No developers. No consultants. No complicated setup.</p>
+    <span class="section-eyebrow">Getting Started</span>
+    <h2 class="section-headline" id="how-heading">Up and Running in Days</h2>
+    <p class="section-subtext">No developers. No consultants. No complicated setup.</p>
   </div>
 
-  <div class="steps-grid">
-    <div class="step-item">
-      <div class="step-number">1</div>
+  <ol class="steps-grid" style="list-style: none;" aria-label="Setup steps">
+    <li class="step-item">
+      <div class="step-number" aria-hidden="true">1</div>
       <h3>Choose Your Plan</h3>
-      <p>Select the tier that fits your town's size and budget. Get instant access to the full system.</p>
-    </div>
-    <div class="step-item">
-      <div class="step-number">2</div>
+      <p>Select the tier that fits your town's size and budget. You get access to the full system immediately.</p>
+    </li>
+    <li class="step-item">
+      <div class="step-number" aria-hidden="true">2</div>
       <h3>Set Up Your Page</h3>
-      <p>Add your logo, town name, and color. Your dedicated meeting records page is live in minutes.</p>
-    </div>
-    <div class="step-item">
-      <div class="step-number">3</div>
+      <p>Add your logo, town name, and colors. Your dedicated meeting records page is live within minutes.</p>
+    </li>
+    <li class="step-item">
+      <div class="step-number" aria-hidden="true">3</div>
       <h3>Use the Templates</h3>
       <p>Download your agenda and minutes templates. Every document your staff creates is ADA-compliant from day one.</p>
-    </div>
-    <div class="step-item">
-      <div class="step-number">4</div>
+    </li>
+    <li class="step-item">
+      <div class="step-number" aria-hidden="true">4</div>
       <h3>Publish with Confidence</h3>
       <p>Upload materials, complete the compliance checklist, and publish. Your community has full, accessible access.</p>
-    </div>
-  </div>
+    </li>
+  </ol>
 </section>
 
 <!-- PRICING -->
-<section class="pricing-section" id="pricing">
+<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
   <div class="section-header">
-    <span class="section-eyebrow">Simple, Transparent Pricing</span>
-    <h2 class="features-headline">One Investment.<br>Complete Compliance.</h2>
-    <p class="features-subtext">
-      A single DOJ complaint can cost a municipality $10,000 or more. CivicMeetings.ai eliminates that risk for a fraction of the cost.
+    <span class="section-eyebrow">Pricing</span>
+    <h2 class="section-headline" id="pricing-heading">Straightforward, One-Time Pricing</h2>
+    <p class="section-subtext">
+      A single DOJ complaint can cost a municipality $10,000 or more. CivicMeetings.ai addresses that risk for a fraction of the cost.
     </p>
   </div>
 
@@ -918,28 +937,28 @@
       <p class="pricing-description">
         Everything your staff needs to get fully compliant and stay that way — at your own pace, on your own schedule.
       </p>
-      <ul class="pricing-features">
+      <ul class="pricing-features" aria-label="Self-Guided plan features">
         <li>Your dedicated meeting records page</li>
         <li>Complete compliance system and workflow</li>
         <li>ADA-ready document templates (Word + Google Docs)</li>
-        <li>AI captioning workflow guide</li>
+        <li>Captioning workflow guide</li>
         <li>Compliance documentation kit</li>
         <li>90-day email support</li>
         <li>Platform updates as regulations evolve</li>
       </ul>
-      <a href="#" class="btn-pricing btn-pricing-outline">Get Started</a>
+      <a href="#contact" class="btn-pricing btn-pricing-outline">Get Started</a>
     </div>
 
     <!-- Tier 2 -->
     <div class="pricing-card featured">
-      <div class="featured-badge">Most Popular</div>
+      <div class="featured-badge">Most Requested</div>
       <div class="pricing-tier">Guided Launch</div>
       <div class="pricing-price"><sup>$</sup>1,497</div>
       <div class="pricing-cadence">one-time payment</div>
       <p class="pricing-description">
-        Everything in Self-Guided plus a live setup session where we walk your staff through the full system together.
+        Everything in Self-Guided, plus a live setup session where we walk your staff through the full system together.
       </p>
-      <ul class="pricing-features">
+      <ul class="pricing-features" aria-label="Guided Launch plan features">
         <li>Everything in Self-Guided</li>
         <li>90-minute live onboarding session</li>
         <li>Staff walkthrough of captioning workflow</li>
@@ -947,7 +966,7 @@
         <li>First meeting record set up together</li>
         <li>30-day priority support after launch</li>
       </ul>
-      <a href="#" class="btn-pricing btn-pricing-primary">Get Started</a>
+      <a href="#contact" class="btn-pricing btn-pricing-primary">Get Started</a>
     </div>
 
     <!-- Tier 3 -->
@@ -958,7 +977,7 @@
       <p class="pricing-description">
         We handle everything. Your existing meeting video backlog gets captioned, your system is fully configured, and your staff is trained and ready.
       </p>
-      <ul class="pricing-features">
+      <ul class="pricing-features" aria-label="Done For You plan features">
         <li>Everything in Guided Launch</li>
         <li>Backfill of existing meeting video captions</li>
         <li>Full system configuration by our team</li>
@@ -966,13 +985,13 @@
         <li>Compliance documentation signed and filed</li>
         <li>60-day priority support after launch</li>
       </ul>
-      <a href="#" class="btn-pricing btn-pricing-outline">Get Started</a>
+      <a href="#contact" class="btn-pricing btn-pricing-outline">Get Started</a>
     </div>
 
   </div>
 
   <!-- Maintenance Add-On -->
-  <div class="maintenance-card">
+  <div class="maintenance-card" role="complementary" aria-label="Maintenance plan add-on">
     <div class="maintenance-left">
       <h3>Add the Maintenance Plan</h3>
       <p>
@@ -982,35 +1001,38 @@
     <div class="maintenance-right">
       <div class="maintenance-price"><sup>$</sup>149</div>
       <div class="maintenance-cadence">per month</div>
-      <a href="#" class="btn-pricing btn-pricing-outline" style="font-size:14px; padding:10px 20px;">Add to My Plan</a>
+      <a href="#contact" class="btn-pricing btn-pricing-outline" style="font-size: 15px; padding: 10px 20px;">Add to My Plan</a>
     </div>
   </div>
 
 </section>
 
 <!-- SOCIAL PROOF -->
-<section class="proof-section">
+<section class="proof-section" aria-labelledby="proof-heading">
   <div class="proof-inner">
-    <p class="proof-quote">
-      We had no idea our council meeting videos weren't compliant. CivicMeetings.ai walked us through the whole thing and now we have a system our clerk can actually manage on her own.
-    </p>
-    <p class="proof-attribution">
-      <strong>Town of Osgood, Indiana</strong> &mdash; Clerk-Treasurer
-    </p>
+    <h2 class="section-eyebrow" id="proof-heading" style="margin-bottom: 28px;">From a Town Clerk</h2>
+    <blockquote cite="#" aria-label="Testimonial from Town of Osgood, Indiana">
+      <p class="proof-quote">
+        We had no idea our council meeting videos weren't compliant. CivicMeetings.ai walked us through the whole thing and now we have a system our clerk can actually manage on her own.
+      </p>
+      <footer class="proof-attribution">
+        <strong>Town of Osgood, Indiana</strong> &mdash; Clerk-Treasurer
+      </footer>
+    </blockquote>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq-section" id="faq">
+<section class="faq-section" id="faq" aria-labelledby="faq-heading">
   <div class="section-header">
     <span class="section-eyebrow">Questions</span>
-    <h2 class="features-headline">Things People Ask</h2>
+    <h2 class="section-headline" id="faq-heading">Common Questions</h2>
   </div>
 
   <div class="faq-grid">
     <div class="faq-item">
       <h3>Does this work with our existing website?</h3>
-      <p>Yes. CivicMeetings.ai is a hosted system that works independently of your website. Your meeting records live at yourtown.civicmeetings.ai and can be linked from or embedded into any existing site — regardless of what CMS it runs.</p>
+      <p>Yes. CivicMeetings.ai is a hosted system that works independently of your website. Your meeting records live at yourtown.civicmeetings.ai and can be linked from or embedded into any existing site, regardless of what CMS it runs.</p>
     </div>
     <div class="faq-item">
       <h3>Do we need a developer to set this up?</h3>
@@ -1022,11 +1044,11 @@
     </div>
     <div class="faq-item">
       <h3>What happens to our data if we cancel?</h3>
-      <p>Your meeting records are retained for 90 days after cancellation so you can export everything. We never delete records immediately — public meeting records are important documents and we treat them that way.</p>
+      <p>Your meeting records are retained for 90 days after cancellation so you can export everything. We do not delete records immediately — public meeting records are important documents and we treat them that way.</p>
     </div>
     <div class="faq-item">
       <h3>Does this cover all our ADA obligations?</h3>
-      <p>CivicMeetings.ai addresses the public meeting records component of your ADA digital accessibility obligations. Your website as a whole has additional requirements. We focus on doing this one thing exceptionally well.</p>
+      <p>CivicMeetings.ai addresses the public meeting records component of your ADA digital accessibility obligations. Your website as a whole has additional requirements. We focus on doing this one thing well.</p>
     </div>
     <div class="faq-item">
       <h3>What if regulations change after we sign up?</h3>
@@ -1036,31 +1058,34 @@
 </section>
 
 <!-- CLOSING CTA -->
-<section class="closing-section">
-  <div class="closing-glow"></div>
+<section class="closing-section" id="contact" aria-labelledby="closing-heading">
   <div class="closing-content">
-    <h2 class="closing-headline">
-      Stop Worrying About Compliance.<br>
-      Start <span>Serving</span> Your Community.
+    <h2 class="closing-headline" id="closing-heading">
+      Your residents deserve<br>
+      <span>full access</span> to their public records.
     </h2>
     <p class="closing-subtext">
-      Your residents deserve full access to their public records. CivicMeetings.ai makes that happen — without the complexity, the legal exposure, or the consultant fees.
+      CivicMeetings.ai gives your staff a system they can manage without legal exposure, without hiring consultants, and without complexity.
     </p>
-    <a href="#pricing" class="btn-primary">Get Started Today</a>
-    <p class="closing-note">Questions? Email <a href="mailto:hello@civicmeetings.ai" style="color: var(--teal); text-decoration: none;">hello@civicmeetings.ai</a> — we respond within one business day.</p>
+    <a href="mailto:hello@civicmeetings.ai" class="btn-primary-inverted">Contact Us to Get Started</a>
+    <p class="closing-note">
+      Email <a href="mailto:hello@civicmeetings.ai">hello@civicmeetings.ai</a> — we respond within one business day.
+    </p>
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-logo">Civic<span>Meetings</span>.ai</div>
   <p class="footer-text">
-    A service of <a href="https://navigatetomorrow.com" target="_blank">Navigate Tomorrow, Inc.</a>
+    A service of <a href="https://navigatetomorrow.com" target="_blank" rel="noopener noreferrer">Navigate Tomorrow, Inc.</a>
   </p>
-  <ul class="footer-links">
-    <li><a href="#">Privacy Policy</a></li>
-    <li><a href="#">Terms of Service</a></li>
-    <li><a href="#">Accessibility</a></li>
+  <ul class="footer-links" role="list" aria-label="Footer links">
+    <li><a href="/privacy">Privacy Policy</a></li>
+    <li><a href="/terms">Terms of Service</a></li>
+    <li><a href="/accessibility">Accessibility</a></li>
     <li><a href="mailto:hello@civicmeetings.ai">Contact</a></li>
   </ul>
 </footer>
@@ -1068,106 +1093,105 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  // Hide hero elements before animation
+  // Hero entrance — elements start hidden
   gsap.set([".hero-eyebrow", ".hero-title", ".hero-subtitle", ".hero-cta-group", ".hero-compliance-note", ".scroll-indicator"], {
-    opacity: 0, y: 30
+    opacity: 0, y: 24
   });
 
-  // Hero entrance
-  const heroTl = gsap.timeline({ delay: 0.15 });
+  const heroTl = gsap.timeline({ delay: 0.1 });
   heroTl
-    .to(".hero-eyebrow",         { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" })
-    .to(".hero-title",           { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, "-=0.3")
-    .to(".hero-subtitle",        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.5")
-    .to(".hero-cta-group",       { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
-    .to(".hero-compliance-note", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-    .to(".scroll-indicator",     { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.2");
+    .to(".hero-eyebrow",         { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" })
+    .to(".hero-title",           { opacity: 1, y: 0, duration: 0.80, ease: "power2.out" }, "-=0.25")
+    .to(".hero-subtitle",        { opacity: 1, y: 0, duration: 0.65, ease: "power2.out" }, "-=0.40")
+    .to(".hero-cta-group",       { opacity: 1, y: 0, duration: 0.60, ease: "power2.out" }, "-=0.30")
+    .to(".hero-compliance-note", { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, "-=0.25")
+    .to(".scroll-indicator",     { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, "-=0.20");
 
-  // Mouse parallax
-  const hero = document.querySelector('.hero');
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-    const yPct = (e.clientY - rect.top)  / rect.height - 0.5;
-    gsap.to(".hero-shapes-back", { duration: 2.0, x: xPct * -45, y: yPct * -22, ease: "power1.out" });
-    gsap.to(".hero-shapes-mid",  { duration: 1.5, x: xPct * -22, y: yPct * -11, ease: "power1.out" });
-    gsap.to(".hero-content",     { duration: 1.2, x: xPct *   8, y: yPct *   5, ease: "power1.out" });
-  });
-
-  // Feature cards 3D reveal
-  gsap.set(".feature-card", {
-    opacity: 0, y: 55, rotateX: 18,
-    transformPerspective: 900, transformOrigin: "top center"
-  });
+  // Feature cards — simple fade up, no 3D
+  gsap.set(".feature-card", { opacity: 0, y: 40 });
   gsap.to(".feature-card", {
     scrollTrigger: {
       trigger: ".features-section",
-      start: "top 68%",
+      start: "top 70%",
       toggleActions: "play none none reverse"
     },
-    opacity: 1, y: 0, rotateX: 0,
-    duration: 0.75,
-    stagger: 0.10,
+    opacity: 1, y: 0,
+    duration: 0.65,
+    stagger: 0.09,
     ease: "power2.out"
   });
 
-  // Features headline
-  gsap.from(".features-headline", {
+  gsap.from(".features-section .section-header", {
     scrollTrigger: { trigger: ".features-section", start: "top 72%" },
-    opacity: 0, y: 35, duration: 0.8, ease: "power3.out"
+    opacity: 0, y: 28, duration: 0.7, ease: "power2.out"
   });
 
   // Steps
-  gsap.set(".step-item", { opacity: 0, y: 40 });
+  gsap.set(".step-item", { opacity: 0, y: 32 });
   gsap.to(".step-item", {
-    scrollTrigger: { trigger: ".how-section", start: "top 70%" },
+    scrollTrigger: { trigger: ".how-section", start: "top 72%" },
     opacity: 1, y: 0,
-    duration: 0.65,
-    stagger: 0.12,
+    duration: 0.60,
+    stagger: 0.11,
     ease: "power2.out"
   });
 
+  gsap.from(".how-section .section-header", {
+    scrollTrigger: { trigger: ".how-section", start: "top 75%" },
+    opacity: 0, y: 24, duration: 0.65, ease: "power2.out"
+  });
+
   // Pricing cards
-  gsap.set(".pricing-card", { opacity: 0, y: 50 });
+  gsap.set(".pricing-card", { opacity: 0, y: 40 });
   gsap.to(".pricing-card", {
-    scrollTrigger: { trigger: ".pricing-section", start: "top 68%" },
+    scrollTrigger: { trigger: ".pricing-section", start: "top 70%" },
     opacity: 1, y: 0,
-    duration: 0.7,
-    stagger: 0.12,
+    duration: 0.65,
+    stagger: 0.11,
     ease: "power2.out"
+  });
+
+  gsap.from(".pricing-section .section-header", {
+    scrollTrigger: { trigger: ".pricing-section", start: "top 75%" },
+    opacity: 0, y: 24, duration: 0.65, ease: "power2.out"
   });
 
   gsap.from(".maintenance-card", {
     scrollTrigger: { trigger: ".maintenance-card", start: "top 85%" },
-    opacity: 0, y: 30, duration: 0.7, ease: "power2.out"
+    opacity: 0, y: 24, duration: 0.60, ease: "power2.out"
   });
 
-  // Proof section
+  // Social proof
   gsap.from(".proof-inner", {
     scrollTrigger: { trigger: ".proof-section", start: "top 75%" },
-    opacity: 0, y: 30, duration: 0.9, ease: "power3.out"
+    opacity: 0, y: 28, duration: 0.80, ease: "power2.out"
   });
 
-  // FAQ items
-  gsap.set(".faq-item", { opacity: 0, y: 30 });
+  // FAQ
+  gsap.set(".faq-item", { opacity: 0, y: 28 });
   gsap.to(".faq-item", {
-    scrollTrigger: { trigger: ".faq-section", start: "top 70%" },
+    scrollTrigger: { trigger: ".faq-section", start: "top 72%" },
     opacity: 1, y: 0,
-    duration: 0.6,
+    duration: 0.55,
     stagger: 0.08,
     ease: "power2.out"
   });
 
+  gsap.from(".faq-section .section-header", {
+    scrollTrigger: { trigger: ".faq-section", start: "top 78%" },
+    opacity: 0, y: 24, duration: 0.60, ease: "power2.out"
+  });
+
   // Closing
   gsap.from(".closing-content", {
-    scrollTrigger: { trigger: ".closing-section", start: "top 72%" },
-    opacity: 0, y: 45, duration: 1.0, ease: "power3.out"
+    scrollTrigger: { trigger: ".closing-section", start: "top 74%" },
+    opacity: 0, y: 36, duration: 0.85, ease: "power2.out"
   });
 
   // Urgency banner
   gsap.from(".urgency-inner", {
-    scrollTrigger: { trigger: ".urgency-section", start: "top 85%" },
-    opacity: 0, y: 20, duration: 0.7, ease: "power2.out"
+    scrollTrigger: { trigger: ".urgency-section", start: "top 88%" },
+    opacity: 0, y: 18, duration: 0.60, ease: "power2.out"
   });
 </script>
 
