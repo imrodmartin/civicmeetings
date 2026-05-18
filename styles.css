@@ -51,7 +51,7 @@ button:focus-visible {
 }
 
 /* ─── NAV ─── */
-nav {
+body > nav {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -280,15 +280,29 @@ footer {
   margin-bottom: 40px;
 }
 .sidebar-nav {
-  margin-bottom: 0;
+  background: #F3EFE8;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-nav-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: none;
+  order: -1;
 }
 .sidebar-nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin: 0;
-  padding: 0;
 }
 .sidebar-nav a {
   display: block;
@@ -302,7 +316,7 @@ footer {
 .sidebar-nav a:hover { color: var(--navy); }
 
 .sidebar-contact-box {
-  margin-top: 50px;
+  margin-top: 100px;
   background: var(--navy);
   border-radius: 4px;
   padding: 24px 28px;
