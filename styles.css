@@ -254,7 +254,7 @@ a:not([class]) { text-decoration: underline; }
 }
 .urgency-banner__text {
   font-family: var(--font-ui);
-  font-size: var(--text-body);     /* was --text-small */
+  /*font-size: var(--text-body);     was --text-small */
   font-weight: 600;
    font-size: 0.8em;
   color: var(--color-navy-dark);   /* #0F1C33 on #E07B00 = 5.2:1 — passes AA */
