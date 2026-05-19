@@ -1,653 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CivicMeetings.us — ADA-Compliant Public Meeting Records for Small Towns</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cream:       #F5F2EC;
-      --cream-dark:  #EDE8DF;
-      --warm-white:  #FEFCF9;
-      --ink:         #1A1916;
-      --ink-mid:     #3D3A35;
-      --ink-muted:   #6E6860;
-      --navy:        #1B3557;
-      --navy-hover:  #142A45;
-      --amber:       #B8751F;
-      --border:      #D8D2C8;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 0 48px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--warm-white);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Lora', serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--navy); }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      background: var(--navy) !important;
-      color: var(--warm-white) !important;
-      padding: 9px 20px;
-      border-radius: 4px;
-      font-weight: 600 !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--navy-hover) !important; }
-
-    /* ─── HERO ─── */
-    .hero {
-      padding: 88px 48px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .hero-rule {
-      width: 48px;
-      height: 3px;
-      background: var(--navy);
-      margin-bottom: 32px;
-    }
-    .hero-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(40px, 5.5vw, 66px);
-      font-weight: 700;
-      line-height: 1.12;
-      color: var(--ink);
-      letter-spacing: -1px;
-      margin-bottom: 28px;
-      max-width: 760px;
-    }
-    .hero-subtitle {
-      font-size: 18px;
-      line-height: 1.72;
-      color: var(--ink-mid);
-      max-width: 580px;
-      margin-bottom: 44px;
-    }
-    .hero-cta-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .btn-primary {
-      display: inline-block;
-      background: var(--navy);
-      color: var(--warm-white);
-      padding: 14px 34px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 16px;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .btn-primary:hover { background: var(--navy-hover); }
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: var(--ink);
-      padding: 13px 26px;
-      border-radius: 4px;
-      font-weight: 500;
-      font-size: 15px;
-      border: 1px solid var(--border);
-      text-decoration: none;
-      transition: border-color 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--ink-mid); }
-    .hero-compliance-note {
-      font-size: 13px;
-      color: var(--ink-muted);
-      padding: 14px 18px;
-      background: var(--cream-dark);
-      border-left: 3px solid var(--amber);
-      max-width: 540px;
-      line-height: 1.65;
-    }
-    .hero-compliance-note strong { color: var(--ink); font-weight: 600; }
-
-    /* ─── URGENCY BANNER ─── */
-    .urgency-section {
-      background: var(--navy);
-      padding: 18px 48px;
-    }
-    .urgency-inner {
-      max-width: 1004px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .urgency-badge {
-      background: var(--amber);
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 11px;
-      border-radius: 2px;
-      white-space: nowrap;
-    }
-    .urgency-text {
-      font-size: 16px;
-      color: rgba(255,255,255,0.9);
-    }
-    .urgency-text strong { color: #fff; font-weight: 600; }
-
-    /* ─── SHARED LAYOUT ─── */
-    .section-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-    .section-header-block {
-      margin-bottom: 52px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(26px, 3.2vw, 38px);
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.4px;
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-    .section-sub {
-      font-size: 16px;
-      color: var(--ink-muted);
-      line-height: 1.7;
-      max-width: 560px;
-    }
-
-    /* ─── FEATURES ─── */
-    .features-section {
-      padding: 88px 0;
-      background: var(--warm-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
-
-    .feature-card {
-      padding: 36px 32px;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .feature-card:nth-child(3n) { border-right: none; }
-    .feature-card:nth-last-child(-n+3):nth-child(3n+1),
-    .feature-card:nth-last-child(-n+3):nth-child(3n+1) ~ .feature-card { border-bottom: none; }
-
-    .feature-number {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--navy);
-      margin-bottom: 14px;
-    }
-    .feature-card h3 {
-      font-family: 'Lora', serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
-    .feature-card p {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.72;
-    }
-
-    /* ─── HOW IT WORKS ─── */
-    .how-section {
-      padding: 88px 0;
-      background: var(--cream);
-    }
-    .steps-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 48px;
-    }
-    @media (max-width: 860px) { .steps-list { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 520px) { .steps-list { grid-template-columns: 1fr; } }
-
-    .step-number {
-      font-family: 'Lora', serif;
-      font-size: 52px;
-      font-weight: 700;
-      color: var(--ink-muted);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-    .step-item h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-    .step-item p {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.7;
-    }
-
-    /* ─── PRICING ─── */
-    .pricing-section {
-      padding: 88px 0;
-      background: var(--warm-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 28px;
-    }
-    @media (max-width: 860px) { .pricing-grid { grid-template-columns: 1fr; } }
-
-    .pricing-card {
-      padding: 40px 32px;
-      border-right: 1px solid var(--border);
-      background: var(--warm-white);
-    }
-    .pricing-card:last-child { border-right: none; }
-    .pricing-card.featured { background: var(--navy); }
-
-    .pricing-tier {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      margin-bottom: 16px;
-    }
-    .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.9); }
-
-    .pricing-price {
-      font-family: 'Lora', serif;
-      font-size: 46px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -2px;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .pricing-price sup {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0;
-      vertical-align: top;
-      margin-top: 8px;
-      display: inline-block;
-    }
-    .pricing-card.featured .pricing-price { color: #fff; }
-
-    .pricing-cadence {
-      font-size: 13px;
-      color: var(--ink-muted);
-      margin-bottom: 24px;
-    }
-    .pricing-card.featured .pricing-cadence { color: rgba(255,255,255,0.85); }
-
-    .pricing-description {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.65;
-      margin-bottom: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-    .pricing-card.featured .pricing-description {
-      color: rgba(255,255,255,0.88);
-      border-bottom-color: rgba(255,255,255,0.12);
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-    .pricing-features li {
-      font-size: 13px;
-      color: var(--ink-mid);
-      padding: 7px 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      line-height: 1.5;
-      border-bottom: 1px solid var(--border);
-    }
-    .pricing-features li:last-child { border-bottom: none; }
-    .pricing-card.featured .pricing-features li {
-      color: rgba(255,255,255,0.78);
-      border-bottom-color: rgba(255,255,255,0.1);
-    }
-    .pricing-features li::before {
-      content: '✓';
-      color: var(--navy);
-      font-weight: 700;
-      font-size: 11px;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-    .pricing-card.featured .pricing-features li::before { color: rgba(255,255,255,0.9); }
-
-    .btn-pricing {
-      display: block;
-      text-align: center;
-      padding: 13px 24px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .btn-pricing-outline {
-      background: transparent;
-      color: var(--navy);
-      border: 1px solid var(--navy);
-    }
-    .btn-pricing-outline:hover { background: var(--cream); }
-    .btn-pricing-white {
-      background: #fff;
-      color: var(--navy);
-      border: none;
-    }
-    .btn-pricing-white:hover { background: var(--cream); }
-
-    .maintenance-card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 28px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-      flex-wrap: wrap;
-      background: var(--cream);
-    }
-    .maintenance-left h3 {
-      font-family: 'Lora', serif;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-    .maintenance-left p {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.65;
-      max-width: 520px;
-    }
-    .maintenance-right { text-align: center; min-width: 160px; }
-    .maintenance-price {
-      font-family: 'Lora', serif;
-      font-size: 30px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -1px;
-      line-height: 1;
-    }
-    .maintenance-price sup {
-      font-size: 15px;
-      vertical-align: top;
-      margin-top: 5px;
-      display: inline-block;
-    }
-    .maintenance-cadence {
-      font-size: 12px;
-      color: var(--ink-muted);
-      margin-bottom: 14px;
-    }
-
-    /* ─── SOCIAL PROOF ─── */
-    .proof-section {
-      padding: 72px 0;
-      background: var(--cream-dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .proof-inner { max-width: 660px; }
-    .proof-quote {
-      font-family: 'Lora', serif;
-      font-size: clamp(19px, 2vw, 24px);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--ink);
-      line-height: 1.65;
-      margin-bottom: 24px;
-    }
-    .proof-rule {
-      width: 32px;
-      height: 2px;
-      background: var(--navy);
-      margin-bottom: 16px;
-    }
-    .proof-attribution {
-      font-size: 12px;
-      color: var(--ink-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ─── FAQ ─── */
-    .faq-section {
-      padding: 88px 0;
-      background: var(--warm-white);
-    }
-    .faq-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0 64px;
-    }
-    @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
-
-    .faq-item {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-    }
-    .faq-item h3 {
-      font-family: 'Lora', serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-    .faq-item p {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.75;
-    }
-
-    /* ─── CLOSING CTA ─── */
-    .closing-section {
-      padding: 96px 0;
-      background: var(--navy);
-    }
-    .closing-content { max-width: 580px; }
-    .closing-rule {
-      width: 48px;
-      height: 3px;
-      background: var(--amber);
-      margin-bottom: 32px;
-    }
-    .closing-headline {
-      font-family: 'Lora', serif;
-      font-size: clamp(30px, 4vw, 50px);
-      font-weight: 700;
-      line-height: 1.15;
-      color: #fff;
-      letter-spacing: -0.5px;
-      margin-bottom: 20px;
-    }
-    .closing-subtext {
-      font-size: 17px;
-      color: rgba(255,255,255,0.88);
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-    .btn-primary-light {
-      display: inline-block;
-      background: #fff;
-      color: var(--navy);
-      padding: 14px 34px;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 16px;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .btn-primary-light:hover { background: var(--cream); }
-    .closing-note {
-      margin-top: 24px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.8);
-    }
-    .closing-note a {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.4);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      padding: 32px 48px;
-      background: var(--cream);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .footer-logo {
-      font-family: 'Lora', serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .footer-logo span { color: var(--navy); }
-    .footer-text { font-size: 12px; color: var(--ink-muted); }
-    .footer-text a { color: var(--navy); text-decoration: none; }
-    .footer-links { display: flex; gap: 24px; list-style: none; }
-    .footer-links a {
-      font-size: 12px;
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--ink); }
-
-    @media (max-width: 680px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero { padding: 60px 24px 60px; }
-      .section-container { padding: 0 24px; }
-      .urgency-section { padding: 14px 24px; }
-      footer { flex-direction: column; text-align: center; padding: 24px 20px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CivicMeetings.us — ADA-Compliant Public Meeting Records for Small Towns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Skip to main content</a>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Civic<span>Meetings</span>.us</a>
-  <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#how-it-works">How It Works</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#pricing" class="nav-cta">Get Started</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-rule"></div>
-  <h1 class="hero-title">
-    ADA-Compliant Meeting Records.<br>Built for Small Towns and Cities
-  </h1>
-  <p class="hero-subtitle">
-    CivicMeetings.us gives your clerk or administrator a complete system to publish accessible meeting records — agendas, minutes, video, and documents — without hiring a developer or compliance consultant.
-  </p>
-  <div class="hero-cta-group">
-    <a href="#pricing" class="btn-primary">See Pricing</a>
-    <a href="#how-it-works" class="btn-secondary">How It Works</a>
+<!-- ===== HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <div class="site-logo">
+      <a href="/" aria-label="CivicMeetings.us — Home">
+        <img src="civicmeetings-logo.svg" alt="CivicMeetings.us" height="80">
+      </a>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#pricing" class="nav-cta" style="text-decoration:none;">Get Started</a></li>
+      </ul>
+    </nav>
   </div>
-  <p class="hero-compliance-note">
-    <strong>DOJ 2024 Final Rule:</strong> State and local governments must meet WCAG 2.1 AA digital accessibility standards. Compliance deadlines begin in 2026. (This was recently updated to 2027 for cities of over 50,000 residents and 2028 for cities with under 50,000 residents).
-  </p>
-</section>
+</header>
 
-<!-- URGENCY BANNER -->
-<div class="urgency-section" id="urgency">
-  <div class="urgency-inner">
-    <span class="urgency-badge">Compliance Deadline</span>
-    <p class="urgency-text">
-      The DOJ's 2024 rule requires digital accessibility for municipalities by <strong>2027 - 2028</strong>. Public meeting records are explicitly in scope.
-    </p>
+<!-- ===== URGENCY BANNER ===== -->
+<div class="urgency-banner" role="region" aria-label="Compliance deadline notice">
+  <div class="urgency-banner__inner">
+    <span class="urgency-banner__badge">Compliance Deadline</span>
+    <p class="urgency-banner__text">The DOJ's 2024 rule requires digital accessibility for municipalities by <strong>2027–2028</strong>. Public meeting records are explicitly in scope.</p>
   </div>
 </div>
 
-<!-- FEATURES -->
-<section class="features-section" id="features">
-  <div class="section-container">
-    <div class="section-header-block">
-      <h2 class="section-title">A Complete Compliance System,<br>Not Just Another Tool</h2>
+<!-- ===== MAIN ===== -->
+<main id="main-content">
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+  <div class="hero__inner">
+    <div class="hero__content">
+      <div class="hero__eyebrow" aria-hidden="true">For Small Towns &amp; Cities</div>
+      <h1 class="hero__headline" id="hero-heading">ADA-Compliant Meeting Records.<br><span class="accent">Built for Your Community.</span></h1>
+      <p class="hero__body">CivicMeetings.us gives your clerk or administrator a complete system to publish accessible meeting records — agendas, minutes, video, and documents — without hiring a developer or compliance consultant.</p>
+      <ul class="hero__bullets" aria-label="Key features">
+        <li>Complete, standards-compliant meeting pages</li>
+        <li>ADA-ready document templates built in</li>
+        <li>Accessible video with AI-assisted captioning</li>
+        <li>Works with any existing website</li>
+      </ul>
+      <div class="hero__compliance-note" role="note">
+        <strong>DOJ 2024 Final Rule:</strong> State and local governments must meet WCAG 2.1 AA digital accessibility standards. Compliance deadlines are 2027 (cities over 50K) and 2028 (cities under 50K).
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <div class="form-card__header">
+        <span class="form-card__title" id="demo-form-title">Request a Free Demo</span>
+      </div>
+      <form class="form-card__body" aria-labelledby="demo-form-title" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="town-name">Town / City Name</label>
+          <input class="form-input" type="text" id="town-name" name="town" placeholder="e.g. Town of Osgood" autocomplete="organization">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-name">Your Name</label>
+          <input class="form-input" type="text" id="contact-name" name="name" placeholder="Clerk or Administrator" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@townhall.gov" autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="population">Population Size</label>
+          <select class="form-select" id="population" name="population">
+            <option value="">Select approximate size</option>
+            <option value="under-2500">Under 2,500</option>
+            <option value="2500-10000">2,500 – 10,000</option>
+            <option value="10000-50000">10,000 – 50,000</option>
+            <option value="over-50000">Over 50,000</option>
+          </select>
+        </div>
+      </form>
+      <div class="form-card__footer">
+        <button class="btn btn--primary btn--full" type="submit" form="demo-form">See It In Action</button>
+        <div class="form-trust" aria-label="Security assurance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Security and Privacy Verified
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="steps-section" id="how-it-works" aria-labelledby="steps-heading">
+  <div class="steps-inner">
+    <div class="section-header">
+      <div class="section-label" aria-hidden="true">How It Works</div>
+      <h2 class="section-title" id="steps-heading">Up and Running in Days, Not Months</h2>
+      <p class="section-sub">No developers. No consultants. No complicated setup.</p>
+    </div>
+    <ol class="steps-grid" style="list-style:none;" aria-label="Setup steps">
+      <li class="step">
+        <div class="step__number" aria-hidden="true">1</div>
+        <div class="step__content">
+          <div class="step__title">Choose Your Plan</div>
+          <div class="step__body">Select the tier that fits your town's size and budget. Get instant access to the full system.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step__number" aria-hidden="true">2</div>
+        <div class="step__content">
+          <div class="step__title">Set Up Your Page</div>
+          <div class="step__body">Add your logo, town name, and color. Your dedicated meeting records page is live in minutes.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step__number" aria-hidden="true">3</div>
+        <div class="step__content">
+          <div class="step__title">Use the Templates</div>
+          <div class="step__body">Download your agenda and minutes templates. Every document your staff creates is ADA-compliant from day one.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step__number" aria-hidden="true">4</div>
+        <div class="step__content">
+          <div class="step__title">Publish with Confidence</div>
+          <div class="step__body">Upload materials, complete the compliance checklist, and publish. Your community has full, accessible access.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section" id="features" aria-labelledby="features-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" aria-hidden="true">What's Included</div>
+      <h2 class="section-title" id="features-heading">A Complete Compliance System,<br>Not Just Another Tool</h2>
       <p class="section-sub">Every element of a compliant public meeting record — handled, documented, and ready for your community.</p>
     </div>
     <div class="features-grid">
@@ -692,54 +191,23 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how-section" id="how-it-works">
-  <div class="section-container">
-    <div class="section-header-block">
-      <h2 class="section-title">Up and Running in Days,<br>Not Months</h2>
-      <p class="section-sub">No developers. No consultants. No complicated setup.</p>
-    </div>
-    <div class="steps-list">
-      <div class="step-item">
-        <div class="step-number">01</div>
-        <h3>Choose Your Plan</h3>
-        <p>Select the tier that fits your town's size and budget. Get instant access to the full system.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-number">02</div>
-        <h3>Set Up Your Page</h3>
-        <p>Add your logo, town name, and color. Your dedicated meeting records page is live in minutes.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-number">03</div>
-        <h3>Use the Templates</h3>
-        <p>Download your agenda and minutes templates. Every document your staff creates is ADA-compliant from day one.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-number">04</div>
-        <h3>Publish with Confidence</h3>
-        <p>Upload materials, complete the compliance checklist, and publish. Your community has full, accessible access.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing-section" id="pricing">
-  <div class="section-container">
-    <div class="section-header-block">
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
+<!-- ===== PRICING ===== -->
+<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" aria-hidden="true">Pricing</div>
+      <h2 class="section-title" id="pricing-heading">Simple, Transparent Pricing</h2>
       <p class="section-sub">A single DOJ complaint can cost a municipality $10,000 or more. CivicMeetings.us eliminates that risk for a fraction of the cost.</p>
     </div>
 
-    <div class="pricing-grid">
+    <div class="pricing-grid" role="list" aria-label="Pricing plans">
 
-      <div class="pricing-card">
+      <div class="pricing-card" role="listitem">
         <div class="pricing-tier">Self-Guided</div>
         <div class="pricing-price"><sup>$</sup>697</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">Everything your staff needs to get fully compliant and stay that way — at your own pace, on your own schedule.</p>
-        <ul class="pricing-features">
+        <ul class="pricing-features" aria-label="Self-Guided plan features">
           <li>Your dedicated meeting records page</li>
           <li>Complete compliance system and workflow</li>
           <li>ADA-ready document templates (Word + Google Docs)</li>
@@ -748,15 +216,15 @@
           <li>90-day email support</li>
           <li>Platform updates as regulations evolve</li>
         </ul>
-        <a href="#" class="btn-pricing btn-pricing-outline">Get Started</a>
+        <a href="#" class="btn--outline-navy" style="display:block;text-align:center;width:100%;padding:14px;text-decoration:none;" aria-label="Get started with the Self-Guided plan for $697">Get Started</a>
       </div>
 
-      <div class="pricing-card featured">
+      <div class="pricing-card featured" role="listitem">
         <div class="pricing-tier">Guided Launch</div>
         <div class="pricing-price"><sup>$</sup>1,497</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">Everything in Self-Guided plus a live setup session where we walk your staff through the full system together.</p>
-        <ul class="pricing-features">
+        <ul class="pricing-features" aria-label="Guided Launch plan features">
           <li>Everything in Self-Guided</li>
           <li>90-minute live onboarding session</li>
           <li>Staff walkthrough of captioning workflow</li>
@@ -764,15 +232,15 @@
           <li>First meeting record set up together</li>
           <li>30-day priority support after launch</li>
         </ul>
-        <a href="#" class="btn-pricing btn-pricing-white">Get Started</a>
+        <a href="#" class="btn--white" style="display:block;text-align:center;width:100%;padding:14px;text-decoration:none;" aria-label="Get started with the Guided Launch plan for $1,497">Get Started</a>
       </div>
 
-      <div class="pricing-card">
+      <div class="pricing-card" role="listitem">
         <div class="pricing-tier">Full Content Deployment</div>
         <div class="pricing-price"><sup>$</sup>3,997</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">We handle everything. Your existing video backlog gets captioned, your system is fully configured, and your staff is trained and ready.</p>
-        <ul class="pricing-features">
+        <ul class="pricing-features" aria-label="Full Content Deployment plan features">
           <li>Everything in Guided Launch</li>
           <li>Backfill of existing meeting video captions</li>
           <li>Full system configuration by our team</li>
@@ -780,42 +248,56 @@
           <li>Compliance documentation signed and filed</li>
           <li>60-day priority support after launch</li>
         </ul>
-        <a href="#" class="btn-pricing btn-pricing-outline">Get Started</a>
+        <a href="#" class="btn--outline-navy" style="display:block;text-align:center;width:100%;padding:14px;text-decoration:none;" aria-label="Get started with the Full Content Deployment plan for $3,997">Get Started</a>
       </div>
 
     </div>
 
+    <!-- MAINTENANCE CARD -->
     <div class="maintenance-card">
       <div class="maintenance-left">
+        <div class="maint-label">Add-On</div>
         <h3>Maintenance Plan</h3>
-        <p>Fully hosted solution - secure and robust, compliance updates as DOJ regulations evolve, and priority support — so you never have to wonder if you're still current.</p>
+        <p>Fully hosted solution — secure and robust, compliance updates as DOJ regulations evolve, and priority support — so you never have to wonder if you're still current.</p>
       </div>
       <div class="maintenance-right">
         <div class="maintenance-price"><sup>$</sup>149</div>
         <div class="maintenance-cadence">per month</div>
-        <a href="#" class="btn-pricing btn-pricing-outline" style="font-size:13px; padding:10px 20px;">First month included!</a>
+        <a href="#" class="btn--white" style="font-size:0.82rem;padding:10px 22px;text-decoration:none;" aria-label="Add the maintenance plan — first month included">First Month Included</a>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- SOCIAL PROOF -->
-<section class="proof-section">
-  <div class="section-container">
-    <div class="proof-inner">
-      <p class="proof-quote">We had no idea our council meeting videos weren't compliant. CivicMeetings.us walked us through the whole thing and now we have a system our clerk can actually manage on her own.</p>
-      <div class="proof-rule"></div>
-      <p class="proof-attribution">Town of Osgood, Indiana &mdash; Clerk-Treasurer</p>
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" aria-hidden="true">Social Proof</div>
+      <h2 class="section-title" id="testimonials-heading">Towns Already Compliant</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <span class="testimonial__quote-mark">"</span>
+        <p class="testimonial__body">We had no idea our council meeting videos weren't compliant. CivicMeetings.us walked us through the whole thing and now we have a system our clerk can actually manage on her own.</p>
+        <span class="testimonial__attribution">Town of Osgood, Indiana — Clerk-Treasurer</span>
+      </div>
+      <div class="testimonial">
+        <span class="testimonial__quote-mark">"</span>
+        <p class="testimonial__body">The setup was genuinely painless. We were up and running with a compliant meeting records page before our next council session. No developer, no consultant — just the system doing what it's built to do.</p>
+        <span class="testimonial__attribution">Small Municipality Administrator — Indiana</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq-section" id="faq">
-  <div class="section-container">
-    <div class="section-header-block">
-      <h2 class="section-title">Common Questions</h2>
+<!-- ===== FAQ ===== -->
+<section class="faq-section" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" aria-hidden="true">FAQ</div>
+      <h2 class="section-title" id="faq-heading">Common Questions</h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item">
@@ -846,33 +328,33 @@
   </div>
 </section>
 
-<!-- CLOSING CTA -->
-<section class="closing-section">
-  <div class="section-container">
-    <div class="closing-content">
-      <div class="closing-rule"></div>
-      <h2 class="closing-headline">
-        Stop worrying about compliance.<br>Start serving your community.
-      </h2>
-      <p class="closing-subtext">
-        Your residents deserve full access to their public records. CivicMeetings.us makes that happen — without the complexity, the legal exposure, or the consultant fees.
-      </p>
-      <a href="#pricing" class="btn-primary-light">Get Started Today</a>
-      <p class="closing-note">Questions? Email <a href="mailto:hello@civicmeetings.us">hello@civicmeetings.us</a> — we respond within one business day.</p>
-    </div>
+<!-- ===== CLOSING CTA ===== -->
+<section class="closing-section" aria-labelledby="closing-heading">
+  <div class="container">
+    <div class="closing-rule" aria-hidden="true"></div>
+    <h2 class="closing-headline" id="closing-heading">Stop worrying about compliance.<br>Start serving your community.</h2>
+    <p class="closing-subtext">Your residents deserve full access to their public records. CivicMeetings.us makes that happen — without the complexity, the legal exposure, or the consultant fees.</p>
+    <a href="#pricing" class="btn btn--primary" style="font-size:1.1rem;padding:16px 40px;text-decoration:none;">Get Started Today</a>
+    <p class="closing-note">Questions? Email <a href="mailto:hello@civicmeetings.us">hello@civicmeetings.us</a> — we respond within one business day.</p>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Civic<span>Meetings</span>.us</div>
-  <p class="footer-text">A service of <a href="https://navigatetomorrow.com" target="_blank">Navigate Tomorrow, Inc.</a></p>
-  <ul class="footer-links">
-    <li><a href="privacy.html">Privacy Policy</a></li>
-    <li><a href="terms.html">Terms of Service</a></li>
-    <li><a href="accessibility.html">Accessibility</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
+<!-- ===== FOOTER ===== -->
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+    <div class="footer-logo" aria-label="CivicMeetings.us">Civic<span>Meetings</span>.us</div>
+    <p class="footer-text">A service of <a href="https://navigatetomorrow.com" target="_blank" rel="noopener noreferrer">Navigate Tomorrow, Inc.</a></p>
+    <nav aria-label="Footer navigation">
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="accessibility.html">Accessibility</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </footer>
 
 </body>
