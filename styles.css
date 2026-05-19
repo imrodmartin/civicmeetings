@@ -229,7 +229,7 @@ a:not([class]) { text-decoration: underline; }
   background: var(--color-warning);
   padding: var(--space-3) var(--container-padding);
   text-align: center;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 .urgency-banner__inner {
   max-width: var(--container-max);
