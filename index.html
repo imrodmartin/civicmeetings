@@ -19,7 +19,12 @@
         <img src="civicmeetings-logo.svg" alt="CivicMeetings.us" height="80">
       </a>
     </div>
-    <nav aria-label="Main navigation">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation menu">
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+    <nav id="main-nav" aria-label="Main navigation">
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
@@ -40,7 +45,7 @@
 </div>
 
 <!-- ===== MAIN ===== -->
-<main id="main-content">
+<main id="main-content" tabindex="-1">
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero" aria-labelledby="hero-heading">
@@ -65,18 +70,18 @@
       <div class="form-card__header">
         <span class="form-card__title" id="demo-form-title">Request a Free Demo</span>
       </div>
-      <form class="form-card__body" aria-labelledby="demo-form-title" novalidate>
+      <form class="form-card__body" id="demo-form" aria-labelledby="demo-form-title">
         <div class="form-field">
           <label class="form-label" for="town-name">Town / City Name</label>
-          <input class="form-input" type="text" id="town-name" name="town" placeholder="e.g. Town of Osgood" autocomplete="organization">
+          <input class="form-input" type="text" id="town-name" name="town" placeholder="e.g. Town of Osgood" autocomplete="organization" required aria-required="true">
         </div>
         <div class="form-field">
           <label class="form-label" for="contact-name">Your Name</label>
-          <input class="form-input" type="text" id="contact-name" name="name" placeholder="Clerk or Administrator" autocomplete="name">
+          <input class="form-input" type="text" id="contact-name" name="name" placeholder="Clerk or Administrator" autocomplete="name" required aria-required="true">
         </div>
         <div class="form-field">
           <label class="form-label" for="email">Email Address</label>
-          <input class="form-input" type="email" id="email" name="email" placeholder="your@townhall.gov" autocomplete="email">
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@townhall.gov" autocomplete="email" required aria-required="true">
         </div>
         <div class="form-field">
           <label class="form-label" for="population">Population Size</label>
@@ -112,28 +117,28 @@
       <li class="step">
         <div class="step__number" aria-hidden="true">1</div>
         <div class="step__content">
-          <div class="step__title">Choose Your Plan</div>
+          <h3 class="step__title">Choose Your Plan</h3>
           <div class="step__body">Select the tier that fits your town's size and budget. Get instant access to the full system.</div>
         </div>
       </li>
       <li class="step">
         <div class="step__number" aria-hidden="true">2</div>
         <div class="step__content">
-          <div class="step__title">Set Up Your Page</div>
+          <h3 class="step__title">Set Up Your Page</h3>
           <div class="step__body">Add your logo, town name, and color. Your dedicated meeting records page is live in minutes.</div>
         </div>
       </li>
       <li class="step">
         <div class="step__number" aria-hidden="true">3</div>
         <div class="step__content">
-          <div class="step__title">Use the Templates</div>
+          <h3 class="step__title">Use the Templates</h3>
           <div class="step__body">Download your agenda and minutes templates. Every document your staff creates is ADA-compliant from day one.</div>
         </div>
       </li>
       <li class="step">
         <div class="step__number" aria-hidden="true">4</div>
         <div class="step__content">
-          <div class="step__title">Publish with Confidence</div>
+          <h3 class="step__title">Publish with Confidence</h3>
           <div class="step__body">Upload materials, complete the compliance checklist, and publish. Your community has full, accessible access.</div>
         </div>
       </li>
@@ -204,7 +209,7 @@
 
       <div class="pricing-card" role="listitem">
         <div class="pricing-tier">Self-Guided</div>
-        <div class="pricing-price"><sup>$</sup>697</div>
+        <div class="pricing-price" aria-label="$697"><sup aria-hidden="true">$</sup>697</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">Everything your staff needs to get fully compliant and stay that way — at your own pace, on your own schedule.</p>
         <ul class="pricing-features" aria-label="Self-Guided plan features">
@@ -221,7 +226,7 @@
 
       <div class="pricing-card featured" role="listitem">
         <div class="pricing-tier">Guided Launch</div>
-        <div class="pricing-price"><sup>$</sup>1,497</div>
+        <div class="pricing-price" aria-label="$1,497"><sup aria-hidden="true">$</sup>1,497</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">Everything in Self-Guided plus a live setup session where we walk your staff through the full system together.</p>
         <ul class="pricing-features" aria-label="Guided Launch plan features">
@@ -237,7 +242,7 @@
 
       <div class="pricing-card" role="listitem">
         <div class="pricing-tier">Full Content Deployment</div>
-        <div class="pricing-price"><sup>$</sup>3,997</div>
+        <div class="pricing-price" aria-label="$3,997"><sup aria-hidden="true">$</sup>3,997</div>
         <div class="pricing-cadence">one-time payment</div>
         <p class="pricing-description">We handle everything. Your existing video backlog gets captioned, your system is fully configured, and your staff is trained and ready.</p>
         <ul class="pricing-features" aria-label="Full Content Deployment plan features">
@@ -261,7 +266,7 @@
         <p>Fully hosted solution — secure and robust, compliance updates as DOJ regulations evolve, and priority support — so you never have to wonder if you're still current.</p>
       </div>
       <div class="maintenance-right">
-        <div class="maintenance-price"><sup>$</sup>149</div>
+        <div class="maintenance-price" aria-label="$149 per month"><sup aria-hidden="true">$</sup>149</div>
         <div class="maintenance-cadence">per month</div>
         <a href="#" class="btn--white" style="font-size:0.82rem;padding:10px 22px;text-decoration:none;" aria-label="Add the maintenance plan — first month included">First Month Included</a>
       </div>
@@ -279,12 +284,12 @@
     </div>
     <div class="testimonials-grid">
       <div class="testimonial">
-        <span class="testimonial__quote-mark">"</span>
+        <span class="testimonial__quote-mark" aria-hidden="true">"</span>
         <p class="testimonial__body">We had no idea our council meeting videos weren't compliant. CivicMeetings.us walked us through the whole thing and now we have a system our clerk can actually manage on her own.</p>
         <span class="testimonial__attribution">Town of Osgood, Indiana — Clerk-Treasurer</span>
       </div>
       <div class="testimonial">
-        <span class="testimonial__quote-mark">"</span>
+        <span class="testimonial__quote-mark" aria-hidden="true">"</span>
         <p class="testimonial__body">The setup was genuinely painless. We were up and running with a compliant meeting records page before our next council session. No developer, no consultant — just the system doing what it's built to do.</p>
         <span class="testimonial__attribution">Small Municipality Administrator — Indiana</span>
       </div>
@@ -357,5 +362,24 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var btn = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('main-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function () {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('is-open');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+      nav.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.focus();
+    }
+  });
+}());
+</script>
 </body>
 </html>

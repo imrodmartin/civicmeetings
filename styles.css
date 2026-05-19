@@ -193,6 +193,35 @@ a:not([class]) { text-decoration: underline; }
 .nav-cta:hover { background: var(--color-red-hover) !important; }
 
 /* =============================================
+   NAV TOGGLE (mobile hamburger)
+   ============================================= */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--color-navy);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 8px;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.nav-toggle__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-navy);
+  border-radius: 1px;
+}
+.nav-toggle:focus-visible {
+  outline: 3px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
+/* =============================================
    URGENCY BANNER
    ============================================= */
 .urgency-banner {
@@ -1032,7 +1061,26 @@ a:not([class]) { text-decoration: underline; }
   .pricing-card.featured { border-bottom: none; }
 }
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  #main-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-4) var(--container-padding);
+    z-index: 99;
+  }
+  #main-nav.is-open { display: block; }
+  #main-nav .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  #main-nav .nav-links a { text-decoration: underline; }
   .features-grid { grid-template-columns: 1fr; }
   .feature-card { border-right: none; border-bottom: 1px solid var(--color-border); }
   .feature-card:last-child { border-bottom: none; }
@@ -1040,6 +1088,18 @@ a:not([class]) { text-decoration: underline; }
   .faq-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
   .maintenance-card { flex-direction: column; align-items: flex-start; }
+}
+
+/* =============================================
+   FOCUS OVERRIDE FOR DARK BACKGROUNDS — WCAG 1.4.11
+   Red #CC2027 on navy fails 3:1; use white instead
+   ============================================= */
+.hero :focus-visible,
+.closing-section :focus-visible,
+.site-footer :focus-visible,
+.pricing-card.featured :focus-visible,
+.maintenance-card :focus-visible {
+  outline-color: var(--color-white);
 }
 
 /* =============================================
