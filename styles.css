@@ -978,7 +978,7 @@ a:not([class]) { text-decoration: underline; }
   letter-spacing: 0.06em;
   color: var(--color-white);
 }
-.footer-logo span { color: var(--color-red); }
+.footer-logo span { color: var(--color-white); }
 .footer-text {
   font-family: var(--font-ui);
   font-size: 0.875rem;             /* small footer text is acceptable at this size */
