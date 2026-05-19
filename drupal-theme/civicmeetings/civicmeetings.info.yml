@@ -1,0 +1,13 @@
+name: CivicMeetings Theme
+type: theme
+description: CivicMeetings.us marketing landing page theme.
+package: Custom
+core_version_requirement: ^10 || ^11
+base theme: false
+libraries:
+  - civicmeetings/global-styling
+regions:
+  header: Header
+  primary_menu: Primary Menu
+  content: Content
+  footer: Footer

@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Base page template — CivicMeetings Theme.
+ *
+ * Used for all non-front pages. The front page uses page--front.html.twig.
+ * Header and footer regions are rendered here; content region is the main body.
+ *
+ * @see template_preprocess_page()
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title | safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+  <body{{ attributes }}>
+
+    {% if page.header %}
+      <header role="banner">
+        {{ page.header }}
+      </header>
+    {% endif %}
+
+    {% if page.primary_menu %}
+      <nav role="navigation" aria-label="{{ 'Main navigation'|t }}">
+        {{ page.primary_menu }}
+      </nav>
+    {% endif %}
+
+    <main id="main-content" role="main">
+      {{ page.content }}
+    </main>
+
+    {% if page.footer %}
+      <footer role="contentinfo">
+        {{ page.footer }}
+      </footer>
+    {% endif %}
+
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>
