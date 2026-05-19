@@ -9,6 +9,7 @@
   --color-off-white:   #F4F6F9;
   --color-red:         #CC2027;
   --color-red-hover:   #A8181E;
+  --color-red-on-dark: #E0383E;   /* 3.26:1 on navy — passes WCAG large-text AA */
   --color-text-dark:   #1A1A2E;
   --color-text-mid:    #4A5568;
   --color-text-light:  #E8EDF5;
@@ -319,7 +320,7 @@ a:not([class]) { text-decoration: underline; }
   margin-bottom: var(--space-5);
   letter-spacing: 0.01em;
 }
-.hero__headline .accent { color: var(--color-red); }
+.hero__headline .accent { color: var(--color-red-on-dark); }
 .hero__body {
   font-family: var(--font-body);
   font-size: 1.3125rem;            /* 1.05 × 1.25 = +25% */
@@ -348,7 +349,7 @@ a:not([class]) { text-decoration: underline; }
   content: '—';
   position: absolute;
   left: 0;
-  color: var(--color-red);
+  color: var(--color-red-on-dark);
   font-weight: 700;
 }
 .hero__compliance-note {
